@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="SmartMart360 - Autonomous Retail Intelligence Dashboard for live shelf monitoring, queue analytics, and fair task assignment.">
+  <meta http-equiv="Cache-Control" content="no-store, no-cache, must-revalidate, max-age=0">
+  <meta http-equiv="Pragma" content="no-cache">
+  <meta http-equiv="Expires" content="0">
+  <title>SmartMart360 | Retail Intelligence Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=smartmart360-20260928-2">
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      SmartMart360
+      <small>RETAIL INTELLIGENCE</small>
+    </div>
+
+    <div class="menu-label">WORKSPACE</div>
+
+    <nav id="nav">
+      <button class="nav-button active" data-page="overview">Overview</button>
+      <button class="nav-button" data-page="inventory">Shelf &amp; Inventory</button>
+      <button class="nav-button" data-page="queue">Queue Intelligence</button>
+      <button class="nav-button" data-page="staff">Staff &amp; Tasks</button>
+      <button class="nav-button" data-page="analytics">Shopper Analytics</button>
+      <button class="nav-button" data-page="reports">Reports</button>
+      <button class="nav-button" data-page="settings">Settings &amp; Devices</button>
+    </nav>
+
+    <div class="sidebar-note">
+      Live retail operations<br>
+      Local AI connected
+    </div>
+  </aside>
+
+  <div class="workspace">
+    <header class="topbar">
+      <span>Workspace / <strong id="current-page">Overview</strong></span>
+      <span class="demo-label">LIVE MODE</span>
+    </header>
+
+    <main id="main"></main>
+  </div>
+
+  <script src="app.js?v=smartmart360-20260928-2"></script>
+</body>
+</html>
