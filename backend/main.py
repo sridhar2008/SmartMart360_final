@@ -1085,7 +1085,47 @@ def get_settings() -> dict[str, Any]:
         }
     )
 
+@app.post("/api/stock")
+def receive_stock(payload: dict[str, Any]) -> dict[str, Any]:
+    """
+    Receive stock data from ESP32.
 
+    Expected ESP32 JSON:
+    {
+        "shelf1": 3,
+        "shelf1Status": "OK",
+        "shelf2": 3,
+        "shelf2Status": "OK"
+    }
+    """
+
+    try:
+        shelf1 = int(payload.get("shelf1", 0))
+        shelf2 = int(payload.get("shelf2", 0))
+    except (TypeError, ValueError):
+        raise HTTPException(
+            status_code=400,
+            detail="shelf1 and shelf2 must be numbers"
+        )
+
+    shelf1_status = str(payload.get("shelf1Status", "UNKNOWN"))
+    shelf2_status = str(payload.get("shelf2Status", "UNKNOWN"))
+
+    print("=" * 50)
+    print("ESP32 STOCK DATA RECEIVED")
+    print(f"Shelf 1 Stock   : {shelf1}")
+    print(f"Shelf 1 Status  : {shelf1_status}")
+    print(f"Shelf 2 Stock   : {shelf2}")
+    print(f"Shelf 2 Status  : {shelf2_status}")
+    print("=" * 50)
+
+    return standard_response({
+        "message": "Stock data received successfully",
+        "shelf1": shelf1,
+        "shelf1Status": shelf1_status,
+        "shelf2": shelf2,
+        "shelf2Status": shelf2_status,
+    })
 @app.post("/products/{product_id}/adjust")
 def adjust_product_quantity(product_id: int, payload: dict[str, Any]) -> dict[str, Any]:
     delta = int(payload.get("delta", 0))
@@ -1152,10 +1192,22 @@ def analytics_dwell() -> dict[str, Any]:
     })
 
 
-app.mount("/", StaticFiles(directory=str(WORKSPACE_ROOT), html=True), name="static")
 
+@app.post("/hardware/test")
+def hardware_test(payload: dict[str, Any]):
+    print("ESP32 DATA RECEIVED:")
+    print(payload)
+
+    return {
+        "success": True,
+        "message": "Hardware data received",
+        "received": payload
+    }
+
+app.mount("/", StaticFiles(directory=str(WORKSPACE_ROOT), html=True), name="static")
 
 if __name__ == "__main__":
     import uvicorn
 
     uvicorn.run("backend.main:app", host="0.0.0.0", port=8000, reload=False)
+
